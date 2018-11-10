@@ -1,0 +1,5 @@
+(function(d,r,s,t){r.rtID = '71658afa3ba9bcbd1599756bbec3d35b_1__';r.rtS = '48df4147f6c5af6deeefb3482520e65b_1__';r.currency = 'CLP';r.domain = 'https://pixel.retargeting.cl';
+__rt_le = function(tag, url) {var x = d.createElement(tag); x.src = url; d.head.appendChild(x);};
+__rt_ls = function(url) {return __rt_le('script', url);};__rt_li = function(url) {return __rt_le('iframe', url);};
+t=r.domain + '/pixel/versioned';if (+'00000011'>=0){t+='/www_hites_com/cli/00000002.00000011.rttrc.js'}
+else {t+='/cli/00000002.rttrc.js';};__rt_ls(t);})(document,rt);

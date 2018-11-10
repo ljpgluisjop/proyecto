@@ -1,0 +1,756 @@
+
+//<!-- gaw -->
+__rt_ls("https://www.googleadservices.com/pagead/conversion_async.js");
+
+//<!-- fbt -->
+!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1643507185960355");fbq("track","PageView");
+
+//<!-- rtb -->
+__rt_li("//us.creativecdn.com/tags?id=pr_82oRsCphrKnwBa3jA8eU&amp;ncm=1");
+
+//<!-- gan -->
+if(window['GoogleAnalyticsObject'] !== "ga"){
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','rtga');
+rtga('create', 'UA-66364109-1', 'auto');
+}
+
+window['rtlog'] = true;
+
+window['rtfb'] = true;
+window['rtfbf'] = fbq;
+
+window['rtan'] = true;
+window['rtanf'] = (window['GoogleAnalyticsObject'] !== "ga")?rtga:ga;
+
+window['rtec'] = false;
+window['rtecf'] = (window['GoogleAnalyticsObject'] !== "ga")?rtga:ga;
+
+window['rtaw'] = true;
+//window['rtawf'] = console.log;
+window['rtawf'] = function(cp) {
+	var out = {
+	  google_conversion_id: 940212318, 
+	  google_conversion_label: "9rSTCMn34HIQ3oCqwAM", 
+	  google_custom_params: cp,
+	  google_remarketing_only: true
+	};
+
+	var out2 = {
+	  google_conversion_id: 940212318, 
+	  google_conversion_label: "0iUPCMHb7IgBEN6AqsAD", 
+	  google_custom_params: cp,
+	  google_remarketing_only: true
+	};
+	console.log(out);
+	console.log(out2);
+	window.google_trackConversion(out);
+	window.google_trackConversion(out2);
+}
+
+window["_rtb"] = function() {
+	var args = [].slice.call(arguments);
+	var rtb = document.createElement("iframe");
+	rtb.setAttribute('width','1');
+	rtb.setAttribute('height','1');
+	rtb.setAttribute('scrolling','no');
+	rtb.setAttribute('frameBorder','0');
+	rtb.setAttribute('style','display: none;');
+	rtb.setAttribute('src','//us.creativecdn.com/tags?id=pr_82oRsCphrKnwBa3jA8eU_'+args.join('_'));
+	document.body.appendChild(rtb);
+	console.log("rtb event",args.join('_'));
+}
+var _rtb = window["_rtb"];
+if(document.querySelectorAll(".home__wrapper").length > 0) _rtb('home');
+
+if(!window.rt) window.rt = [];
+var rt = window.rt;
+
+rt.push(function(){
+	rt.RetargetingFuncs.push(function(r){      	
+		if(typeof r.length === "undefined") r = [r];
+      
+		r.forEach(function(msg){
+			if(!msg.hasOwnProperty("body")) return;
+			
+			msg = msg.body;
+			
+			switch(msg[0]) {
+				case 'CategoryView':     _rtb('category2', msg[1]);
+					break;
+				case 'ProductView':     if(msg[4] === "true") _rtb('offer', msg[1]);
+										if(msg[4] === "false" && document.location.pathname.indexOf("search") !== -1) _rtb('listing', msg[1]);
+					break;
+				case 'ProductAdd':      _rtb('basketadd', msg[1]);
+					break;
+				case 'CartCheckoutSQP':    	if(msg[1] == "2") _rtb('startorder');
+											if(msg[1] == "3") _rtb('basketstatus', rt.SQP2SKU(msg.slice(3)).join(','));
+					break;
+				case 'CartPurchaseSQP': _rtb('orderstatus2', msg[2], msg[1] , rt.SQP2SKU(msg.slice(3)).join(','));
+					break;
+				default: break;
+			}
+		
+		});
+	});
+});
+var rt = window['rt'] || [];
+var d = document;
+var w = window;
+var l = location;
+rt._rt_pub = {};
+rt._rt_sub = {};
+rt.applyFunc = function(f) {
+	setTimeout(function() {
+		try {
+			f()
+		} catch (e) {
+		}
+	}, 1)
+};
+rt.flagPub = function(key) {
+	rt._rt_pub[key] = true;
+	if (rt._rt_sub[key]) {
+		var s = rt._rt_sub[key];
+		while (s.length > 0) {
+			rt.applyFunc(s.shift())
+		}
+	}
+};
+rt.flagSub = function(key, f) {
+	if (rt._rt_pub[key]) {
+		rt.applyFunc(f);
+	} else {
+		if (!rt._rt_sub[key])
+			rt._rt_sub[key] = [];
+		rt._rt_sub[key].push(f);
+	}
+}
+rt.flagSet = rt.flagPub;
+rt.getOrFailure = function(arr, success, failure) {
+	var a = arr || [];
+	if (a.length > 0)
+		success(a[0]);
+	else
+		failure();
+};
+rt.RetargetingFuncs = [];
+rt.upload = function(value) {
+	if (value.constructor === Array) {
+		try {
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', rt.domain + '/pixel');
+			xhr.setRequestHeader('Content-Type', 'application/json');
+			xhr.setRequestHeader('rtID', rt.rtID);
+			xhr.setRequestHeader('rtS', rt.rtS);
+			xhr.setRequestHeader('rtV', '2');
+			if (value.rtc) {
+				xhr.setRequestHeader('rtc', value.rtc);
+			} else {
+				xhr.setRequestHeader('rtc', rt.currency);
+			}
+			var onerror = function() {
+				for (var k = 0; k < value.length; k++) {
+					var event = value[k];
+					// ocupar pixel
+					var i = d.createElement('img');
+					i.style = 'display: none';
+					i.src = rt.domain + '/pixel?' + encodeURI(event.join("&"));
+					var t = d.getElementsByTagName('script')[0];
+					t.appendChild(i);
+				}
+			};
+			xhr.onerror = onerror;
+			xhr.onload = function() {
+				if (xhr.status === 200) {
+					try {
+						var actions = JSON.parse(xhr.responseText);
+						for (var i = 0; i < actions.length; i++) {
+							var response = actions[i];
+							var func = w[response.action]
+									|| rt[response.action];
+							try {
+								if (w.rtlog)
+									console.log('rt.resp', response);
+								if (func)
+									func(response.body);
+							} catch (e) {
+								console.error(e);
+							}
+							for (var j = 0, l = rt.RetargetingFuncs.length; j < l; j++) {
+								rt.applyFunc((function(a, b) {
+									return function() {
+										a(b);
+									}
+								})(rt.RetargetingFuncs[j], response));
+							}
+						}
+					} catch (e) {
+						console.error(e);
+					}
+				}
+			};
+			var json = JSON.stringify(value);
+			xhr.send(json);
+		} catch (e) {
+			console.error(e);
+		}
+	}
+};
+rt.to = function(param) {
+	if (param) {
+		var a = [], t = [];
+		while (param.length > 0) {
+			while (param.length > 0) {
+				e = param.shift();
+				if (e) {
+					if (e instanceof Array) {
+						a.push(e);
+					} else if (typeof e === "function") {
+						rt.applyFunc(e);
+						break;
+					} else if (e.rtc) {
+						a.rtc = e.rtc;
+						break;
+					}
+				}
+			}
+			if (a.length > 0) {
+				t = a.slice();
+				t.rtc = a.rtc;
+				w.setTimeout(function() {
+					rt.upload(t);
+				}, 1);
+			}
+			a = [];
+		}
+		if (a.length > 0) {
+			t = a.slice();
+			t.rtc = a.rtc;
+			w.setTimeout(function() {
+				rt.upload(t);
+			}, 1);
+		}
+		if (w.rtlog) {
+			for (var i = 0, len = param.length; i < len; i++) {
+				var msg = param[i];
+				console.log('rt.send', msg);
+			}
+		}
+	}
+};
+rt.urlParams = function() {
+	var u = (l.search + l.hash).split(/[?&\/#]/), o = {};
+	for (var i = 0; i < u.length; i++) {
+		if (u[i].length > 2 && u[i].indexOf('=') > 0) {
+			var r = u[i].split('=');
+			o[decodeURIComponent(r[0])] = decodeURIComponent(r[1]);
+		}
+	}
+	return o;
+};
+
+// store https://gist.github.com/Fluidbyte/4718380
+rt.lstore = function store(key, value) {
+	var lsSupport = false; // if (localStorage) {lsSupport = true;}
+	if (typeof value !== "undefined" && value !== null) {
+		if (typeof value === 'object') {
+			value = JSON.stringify(value);
+		}
+		if (lsSupport) {
+			localStorage.setItem(key, value);
+		} else {
+			createCookie(key, value, 30);
+		}
+	}
+	if (typeof value === "undefined") {
+		if (lsSupport) {
+			data = localStorage.getItem(key);
+		} else {
+			data = readCookie(key);
+		}
+		try {
+			data = JSON.parse(data);
+		} catch (e) {
+			data = data;
+		}
+		return data;
+	}
+	if (value === null) {
+		if (lsSupport) {
+			localStorage.removeItem(key);
+		} else {
+			createCookie(key, '', -1);
+		}
+	}
+	function createCookie(key, value, exp) {
+		var date = new Date();
+		date.setTime(date.getTime() + (exp * 24 * 60 * 60 * 1000));
+		var expires = "; expires=" + date.toGMTString();
+		d.cookie = '__rt__' + key + "=" + value + expires + "; path=/";
+	}
+	function readCookie(key) {
+		var nameEQ = '__rt__' + key + "=";
+		var ca = d.cookie.split(';');
+		for (var i = 0, max = ca.length; i < max; i++) {
+			var c = ca[i];
+			while (c.charAt(0) === ' ')
+				c = c.substring(1, c.length);
+			if (c.indexOf(nameEQ) === 0)
+				return c.substring(nameEQ.length, c.length);
+		}
+		return null;
+	}
+};
+
+// queuePush
+rt.timedTime = 1000;
+var _rt_timedGAP = function(v) {
+	var x = rt.lstore('__rtp');
+	if (!x)
+		x = [];
+	x.push(v);
+	rt.lstore('__rtp', x);
+};
+var _rt_tpf = function() {
+	var x = rt.lstore('__rtp');
+	rt.lstore('__rtp', []);
+	rt.to(x);
+};
+var _rt_tpt = false;
+_rt_tpf();
+rt.queuePush = function(e) {
+	if (_rt_tpt) {
+		clearTimeout(_rt_tpt);
+		_rt_tpt = false;
+	}
+	_rt_timedGAP(e);
+	_rt_tpt = setTimeout(_rt_tpf, rt.timedTime);
+}
+
+// js error handling
+if (!w["rtERR"]) {
+	var ew = w.onerror;
+	var er = [];
+	var en = function() {
+		var ea = [].slice.call(arguments);
+		if (ew) {
+			ew.apply(null, ea);
+		}
+		var s = JSON.stringify(ea);
+		if (er.indexOf(s) < 0) {
+			er.push(s);
+			ea.unshift("JSError", l.href);
+			rt.push(ea);
+		}
+	};
+	w["rtERR"] = true;
+	w.onerror = en;
+}
+
+// API
+w.rtGetContent = function(path, func, params, body) {
+	try {
+		var par = params;
+		var pbody = null;
+		switch (typeof body) {
+		case "string":
+		case "number":
+		case "boolean":
+			pbody = String(body);
+			break;
+		case "object":
+			pbody = JSON.stringify(body);
+			break;
+		default:
+			pbody = null;
+		}
+		;
+		if (!(par instanceof Array)) {
+			par = [ par ];
+		}
+		var p = par.join('/');
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', rt.domain + '/' + path + '/' + p);
+		xhr.setRequestHeader('Content-Type', 'application/json');
+		xhr.setRequestHeader('rtID', rt.rtID);
+		xhr.setRequestHeader('rtS', rt.rtS);
+		xhr.setRequestHeader('rtV', '2');
+		xhr.onerror = onerror;
+		xhr.onload = function() {
+			if (xhr.status === 200) {
+				try {
+					var c = xhr.responseText;
+					if (w.rtlog)
+						console.log.apply(null, [ c ]);
+					if (func) {
+						func.apply(body, [ c ]);
+					}
+				} catch (e) {
+					console.error(e);
+				}
+			}
+		};
+		xhr.send(pbody);
+	} catch (e) {
+		console.error(e);
+	}
+};
+
+w.rtGetJson = function(path, func, params, body) {
+	var wrap = function(param) {
+		func(JSON.parse(param))
+	};
+	w.rtGetContent(path, wrap, params, body);
+};
+// old API
+w.rtSeo = {};
+w.rtSeo.getContent = function(k, i) {
+};
+w.rtSession = {};
+w.rtSession.getContent = function(func, params) {
+	w.rtGetContent('session', func, params || [ 'view' ])
+};
+w.rtDetail = {};
+w.rtDetail.getContent = function(func, params) {
+	w.rtGetContent('detail', func, params)
+};
+// new API
+w.rtContent = {};
+// new SEO
+w.rtContent._getSeo = function(k, i) {
+	w.rtGetContent('seo', function(c) {
+		var n = d.createElement('div');
+		n.setAttribute('id', 'rtSeo');
+		n.innerHTML = c;
+		d.getElementsByTagName("body")[0].appendChild(n);
+	}, [ k, i ]);
+};
+w.rtContent.seoHome = function() {
+	w.rtContent._getSeo('home', 'home')
+};
+w.rtContent.seoProduct = function(id) {
+	w.rtContent._getSeo('product', id)
+};
+w.rtContent.seoCategory = function(id) {
+	w.rtContent._getSeo('category', id)
+};
+// new SESSION
+w.rtContent.sessionView = function(func, n) {
+	var params = [ 'view' ];
+	if (n)
+		params.push(n);
+	w.rtGetJson('session', func, params);
+};
+w.rtContent.sessionGeo = function(func) {
+	w.rtGetJson('session', func, 'geo');
+};
+w.rtContent.sessionKeySet = function(func, key, value) {
+	w.rtGetContent('session', func, [ 'keySet', key ], value);
+};
+w.rtContent.sessionKeyGet = function(func, key) {
+	w.rtGetContent('session', func, [ 'keyGet', key ]);
+};
+rt.rstore = function(func, key, value) {
+	if (value) {
+		w.rtGetContent('session', func, [ 'keySet', key ], value);
+	} else {
+		w.rtGetContent('session', func, [ 'keyGet', key ]);
+	}
+};
+// new DETAIL
+w.rtContent.getProduct = function(func, id) {
+	w.rtGetJson('detail', func, [ 'product', id ]);
+};
+// new PROMO
+w.rtContent.promoTranslate = function(func, promo, hash) {
+	w.rtGetJson('promo', func, [ promo, 'translate' ], hash);
+};
+w.rtContent.promoValidate = function(func, promo, hash) {
+	w.rtGetJson('promo', func, [ promo, 'validate' ], hash);
+};
+w.rtContent.promoUse = function(func, promo, hash) {
+	w.rtGetJson('promo', func, [ promo, 'use' ], hash);
+};
+// Error, NoAction, OverPrice, UnderPrice, Retargeting
+rt.Error = function(msg) {
+};
+rt.NoAction = function(msg) {
+};
+rt.OverPrice = function(msg) {
+};
+rt.UnderPrice = function(msg) {
+};
+rt.SQP2SKU = function(sqps) {
+	var skus = [];
+	for (var i = 0, l = sqps.length; i < l; i += 3) {
+		skus.push(sqps[i]);
+	}
+	return skus;
+};
+rt.SQP2OBJ = function(sqps) {
+	var objs = [];
+	for (var i = 0, l = sqps.length; i < l; i += 3) {
+		objs.push(sqps.slice(i, i + 3));
+	}
+	return objs;
+};
+rt.Retargeting = function(msg) {
+	if (w.rtfb) {
+		var out = false;
+		switch (msg[0]) {
+		case 'ProductView':
+			out = [ 'track', 'ViewContent', {
+				currency : rt.currency,
+				value : msg[2],
+				content_ids : [ msg[1] ],
+				content_type : 'product'
+			} ];
+			break;
+		case 'ProductAdd':
+			out = [ 'track', 'AddToCart', {
+				currency : rt.currency,
+				value : msg[2],
+				content_ids : [ msg[1] ],
+				content_type : 'product'
+			} ];
+			break;
+		case 'CartCheckoutSQP':
+			out = [ 'track', 'InitiateCheckout', {
+				currency : rt.currency,
+				value : msg[2],
+				content_ids : rt.SQP2SKU(msg.slice(3)),
+				content_type : 'product'
+			} ];
+			break;
+		case 'CartPurchaseSQP':
+			out = [ 'track', 'Purchase', {
+				currency : rt.currency,
+				value : msg[2],
+				content_ids : rt.SQP2SKU(msg.slice(3)),
+				content_type : 'product'
+			} ];
+			break;
+		default:
+			break;
+		}
+		if (out) {
+			if (w.rtlog)
+				console.log.apply(null, [ 'w.rtfbf' ].concat(out));
+			var func = w.rtfbf || console.log;
+			try {
+				func.apply(null, out);
+			} catch (e) {
+				console.error(e);
+			}
+		}
+	}
+	if (w.rtec) {
+		var out = false;
+		var acc = [];
+		switch (msg[0]) {
+		case 'ProductView':
+			acc.push([ 'ec:addImpression', {
+				'id' : msg[1],
+				'price' : msg[2]
+			} ]);
+			acc.push([ 'send', 'event', 'rt', 'ProductView' ]);
+			break;
+		case 'ProductAdd':
+			acc.push([ 'ec:addProduct', {
+				'id' : msg[1],
+				'price' : msg[2]
+			} ]);
+			acc.push([ 'ec:setAction', 'add' ]);
+			acc.push([ 'send', 'event', 'rt', 'ProductAdd' ]);
+			break;
+		case 'ProductDel':
+			acc.push([ 'ec:addProduct', {
+				'id' : msg[1]
+			} ]);
+			acc.push([ 'ec:setAction', 'remove' ]);
+			acc.push([ 'send', 'event', 'rt', 'ProductDel' ]);
+			break;
+		case 'CartCheckoutSQP':
+			rt.SQP2OBJ(msg.slice(3)).map(function(sqp) {
+				return [ 'ec:addProduct', {
+					'id' : sqp[0],
+					'quantity' : sqp[1],
+					'price' : sqp[2]
+				} ];
+			}).forEach(function(sqp) {
+				acc.push(sqp);
+			});
+			acc.push([ 'ec:setAction', 'checkout', {
+				'step' : msg[1]
+			} ]);
+			acc.push([ 'send', 'event', 'rt', 'CaheckoutSQP' ]);
+			break;
+		case 'CartPurchaseSQP':
+			rt.SQP2OBJ(msg.slice(3)).map(function(sqp) {
+				return [ 'ec:addProduct', {
+					'id' : sqp[0],
+					'quantity' : sqp[1],
+					'price' : sqp[2]
+				} ];
+			}).forEach(function(sqp) {
+				acc.push(sqp);
+			});
+			acc.push([ 'ec:setAction', 'purchase', {
+				'id' : msg[1],
+				'revenue' : msg[2]
+			} ]);
+			acc.push([ 'send', 'event', 'rt', 'CartPurchaseSQP' ]);
+			break;
+		default:
+			break;
+		}
+		var func = w.rtecf || console.log;
+		acc.forEach(function(out) {
+			if (w.rtlog)
+				console.log.apply(null, [ 'w.rtecf' ].concat(out));
+			try {
+				func.apply(null, out);
+			} catch (e) {
+				console.error(e);
+			}
+		});
+	}
+	if (w.rtan) {
+		var out = false;
+		var acc = [];
+		switch (msg[0]) {
+		case 'CustomEvent':
+			acc.push([ 'send', 'event', msg[1], msg[2], msg[3] ]);
+			break;
+		default:
+			break;
+		}
+		var func = w.rtanf || console.log;
+		acc.forEach(function(out) {
+			if (w.rtlog)
+				console.log.apply(null, [ 'w.rtanf' ].concat(out));
+			try {
+				func.apply(null, out);
+			} catch (e) {
+				console.error(e);
+			}
+		});
+	}
+	if (w.rtaw) {
+		var out = false;
+		switch (msg[0]) {
+		case 'ProductView':
+			out = [ {
+				dynx_itemid : msg[1],
+				dynx_totalvalue : msg[2],
+				dynx_pagetype : 'offerdetail',
+				ecomm_totalvalue : msg[2],
+				ecomm_pagetype : 'product',
+				ecomm_prodid : msg[1]
+			} ];
+			break;
+		case 'CartCheckoutSQP':
+			out = [ {
+				dynx_itemid : rt.SQP2SKU(msg.slice(3)),
+				dynx_totalvalue : msg[2],
+				dynx_pagetype : 'conversionintent',
+				ecomm_totalvalue : msg[2],
+				ecomm_pagetype : 'cart',
+				ecomm_prodid : rt.SQP2SKU(msg.slice(3))
+			} ];
+			break;
+		case 'CartPurchaseSQP':
+			out = [ {
+				dynx_itemid : rt.SQP2SKU(msg.slice(3)),
+				dynx_totalvalue : msg[2],
+				dynx_pagetype : 'conversion',
+				ecomm_totalvalue : msg[2],
+				ecomm_pagetype : 'purchase',
+				ecomm_prodid : rt.SQP2SKU(msg.slice(3))
+			} ];
+			break;
+		default:
+			break;
+		}
+		if (out) {
+			if (w.rtlog)
+				console.log.apply(null, [ 'w.rtawf' ].concat(out));
+			var func = w.rtawf || console.log;
+			try {
+				func.apply(null, out);
+			} catch (e) {
+				console.error(e);
+			}
+		}
+	}
+	if (w.rt_seo) {
+		switch (msg[0]) {
+		case 'ProductView':
+			w.rtSeo.getContent('product', msg[1]);
+			break;
+		case 'CategoryView':
+			w.rtSeo.getContent('category', msg[1]);
+			break;
+		default:
+			break;
+		}
+	}
+};
+
+function filter(o, p, c) {
+	var u = [];
+	if (c)
+		u.push(c);
+	var k = Object.getOwnPropertyNames(o);
+	for (var i = 0; i < k.length; i++) {
+		if (k[i].substring(0, p.length).toLowerCase() == p) {
+			u.push(k[i]);
+			u.push(o[k[i]]);
+		}
+	}
+	return u;
+};
+function extract(obj, evt, ff, of) {
+	var ret = [ evt ], all = true;
+	for (var i = 0, len = ff.length; i < len; i++) {
+		if (obj[ff[i]]) {
+			ret.push(obj[ff[i]]);
+		} else {
+			all = false;
+		}
+	}
+	if (of) {
+		for (var i = 0, len = of.length; i < len; i++) {
+			if (obj[of[i]]) {
+				ret.push(obj[of[i]]);
+			} else {
+				ret.push('');
+			}
+		}
+	}
+	if (all) {
+		return ret;
+	} else {
+		return false;
+	}
+};
+var up = rt.urlParams(), cc = [];
+var ut = filter(up, 'utm', 'UTMData'), ug = filter(up, 'gclid', 'GCLIDData'); // uu =
+// filter(up,
+// 'utm',
+// 'UpdateUser')
+var rte = extract(up, 'CustomEvent',
+		[ 'rt_event_category', 'rt_event_action' ], [ 'rt_event_label' ]);
+if (ut.length > 1)
+	rt.push(ut);
+if (ug.length > 1)
+	rt.push(ug);
+if (rte)
+	rt.push(rte); // if (uu.length > 1) rt.push(uu)
+// cleanup y push
+if (rt.length > 0)
+	rt.to(rt);
+rt.push = function() {
+	var args = Array.prototype.slice.call(arguments);
+	rt.to(args);
+};
